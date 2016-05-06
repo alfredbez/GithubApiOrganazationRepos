@@ -30,7 +30,7 @@ if (isset($repositories->message)) {
     die();
 }
 
-usort($repositories, function($a, $b){
+usort($repositories, function ($a, $b) {
     return strtotime($b->pushed_at) - strtotime($a->pushed_at);
 });
 $climate->out(count($repositories));
@@ -38,9 +38,9 @@ $climate->out(count($repositories));
 if (!$useShortVersion) {
     foreach ($repositories as $repository) {
         $prettyData[] = [
-            'name'        => $repository->name,
-            'updated_at'  => $repository->updated_at,
-            'pushed_at'   => $repository->pushed_at,
+            'name'       => $repository->name,
+            'updated_at' => $repository->updated_at,
+            'pushed_at'  => $repository->pushed_at,
         ];
     }
     $climate->table($prettyData);
