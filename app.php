@@ -25,7 +25,7 @@ $url = 'https://'.$basicAuth.'api.github.com/orgs/'.$organazation.'/repos';
 $curl->get($url);
 
 $repositories = json_decode($curl->response);
-if ($repositories->message) {
+if (isset($repositories->message)) {
     $climate->out('rate limit reached :-(');
     die();
 }
