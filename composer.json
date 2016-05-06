@@ -1,6 +1,7 @@
 {
     "require": {
         "curl/curl": "^1.3",
-        "league/climate": "^3.2"
+        "league/climate": "^3.2",
+        "vlucas/phpdotenv": "^2.2"
     }
 }

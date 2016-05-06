@@ -2,8 +2,10 @@
 <?php
 require 'vendor/autoload.php';
 
-$curl = new Curl\Curl;
-$climate = new League\CLImate\CLImate;
+$curl = new Curl\Curl();
+$climate = new League\CLImate\CLImate();
+$dotenv = new Dotenv\Dotenv(__DIR__);
+$dotenv->load();
 
 $useShortVersion = in_array('--short', $argv) || in_array('-S', $argv);
 
@@ -15,7 +17,12 @@ if (!isset($argv[1]) || strpos($argv[1], '-S') === 0 || strpos($argv[1], '--shor
 $organazation = $argv[1];
 
 $curl->setUserAgent('User-Agent: Awesome-Octocat-App');
-$curl->get('https://api.github.com/orgs/'.$organazation.'/repos');
+$basicAuth = '';
+if (getenv('githubUsername') && getenv('githubPassword')) {
+    $basicAuth = getenv('githubUsername').':'.getenv('githubPassword').'@';
+}
+$url = 'https://'.$basicAuth.'api.github.com/orgs/'.$organazation.'/repos';
+$curl->get($url);
 
 $repositories = json_decode($curl->response);
 if ($repositories->message) {
